@@ -14,13 +14,15 @@ class MetricTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(12),
+        color: cs.surface,
+        border: Border.all(color: Theme.of(context).dividerColor),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
         children: [
@@ -30,18 +32,20 @@ class MetricTile extends StatelessWidget {
               children: [
                 Text(title,
                     style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500)),
+                        fontSize: 14, fontWeight: FontWeight.w600)),
                 if (subtitle != null) ...[
                   const SizedBox(height: 4),
-                  Text(subtitle!, style: const TextStyle(fontSize: 12)),
+                  Text(subtitle!, style: TextStyle(color: cs.onSurfaceVariant)),
                 ],
               ],
             ),
           ),
           const SizedBox(width: 12),
           Text(value,
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: cs.primary)),
         ],
       ),
     );

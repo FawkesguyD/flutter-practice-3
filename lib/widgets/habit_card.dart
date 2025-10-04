@@ -17,13 +17,15 @@ class HabitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        color: cs.surface,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,11 +46,12 @@ class HabitCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.blueGrey.shade50,
+                  color: cs.secondaryContainer,
                 ),
                 child: Text(
                   habit.frequencyLabel,
-                  style: const TextStyle(fontSize: 12),
+                  style:
+                      TextStyle(fontSize: 12, color: cs.onSecondaryContainer),
                 ),
               ),
             ],
@@ -57,7 +60,7 @@ class HabitCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               habit.description!,
-              style: const TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14, color: cs.onSurfaceVariant),
             ),
           ],
           const SizedBox(height: 12),

@@ -6,15 +6,6 @@ import 'tabs/add_edit_page.dart';
 import 'tabs/progress_page.dart';
 import 'tabs/help_page.dart';
 
-/// ВАЖНО: Ровно 5 экранов-приложения (каждый — отдельный Widget экрана):
-/// 1) DashboardPage
-/// 2) HabitsPage
-/// 3) AddEditPage
-/// 4) ProgressPage
-/// 5) HelpPage
-///
-/// Никаких дополнительных экранов через Navigator не открывается —
-/// редактирование делаем через переключение на вкладку AddEditPage.
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
@@ -34,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   int _nextId = 1;
 
   final List<Habit> _habits = [];
-  Habit? _editing; // если не null — редактируем эту привычку на экране Add/Edit
+  Habit? _editing;
 
   void _addHabit(Habit habit) {
     setState(() {
@@ -81,14 +72,14 @@ class _HomePageState extends State<HomePage> {
   void _goToAddNew() {
     setState(() {
       _editing = null;
-      _currentIndex = 2; // вкладка Add/Edit
+      _currentIndex = 2;
     });
   }
 
   void _goToEdit(Habit habit) {
     setState(() {
       _editing = habit;
-      _currentIndex = 2; // вкладка Add/Edit
+      _currentIndex = 2;
     });
   }
 
@@ -110,7 +101,7 @@ class _HomePageState extends State<HomePage> {
       HabitsPage(
         habits: _habits,
         onDone: _markDone,
-        onEdit: _goToEdit, // без Navigator — переключаемся на вкладку Add/Edit
+        onEdit: _goToEdit,
         onDelete: _deleteHabit,
       ),
       AddEditPage(
@@ -147,18 +138,37 @@ class _HomePageState extends State<HomePage> {
           child: pages[_currentIndex],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Главная'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt), label: 'Привычки'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Добавить'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.insights), label: 'Прогресс'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.info_outline), label: 'Справка'),
+      // НЕ белая нижняя панель — NavigationBar c темой из main.dart
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: 'Главная',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.list_alt_outlined),
+            selectedIcon: Icon(Icons.list_alt),
+            label: 'Привычки',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.add_circle_outline),
+            selectedIcon: Icon(Icons.add_circle),
+            label: 'Добавить',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.insights_outlined),
+            selectedIcon: Icon(Icons.insights),
+            label: 'Прогресс',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.info_outline),
+            selectedIcon: Icon(Icons.info),
+            label: 'Справка',
+          ),
         ],
       ),
     );

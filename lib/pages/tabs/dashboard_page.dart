@@ -16,6 +16,8 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,18 +25,22 @@ class DashboardPage extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.blue.shade50,
-            borderRadius: BorderRadius.circular(16),
+            color: cs.primaryContainer,
+            borderRadius: BorderRadius.circular(18),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Практическая работа №3',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              Text('Практическая работа №3',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: cs.onPrimaryContainer,
+                  )),
               const SizedBox(height: 6),
               Text(
                 'Студент: $studentFullName\nГруппа: $group',
-                style: const TextStyle(fontSize: 14),
+                style: TextStyle(color: cs.onPrimaryContainer),
               ),
             ],
           ),
@@ -45,9 +51,7 @@ class DashboardPage extends StatelessWidget {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Создавай привычки, отмечай выполнение и смотри прогресс.',
-        ),
+        const Text('Создавай привычки, отмечай выполнение и смотри прогресс.'),
         const SizedBox(height: 16),
         Row(
           children: [
@@ -57,11 +61,10 @@ class DashboardPage extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 24),
-        const Text(
-          'На всех экранах используются базовые виджеты: '
-          'Text, ElevatedButton, OutlinedButton, TextButton, Column, Row, '
-          'Container, SizedBox, Padding.',
-          style: TextStyle(fontSize: 12),
+        Text(
+          'На всех экранах — базовые виджеты: Text / Buttons / Column / Row / '
+          'Container / SizedBox / Padding, индикаторы и списки.',
+          style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
         ),
       ],
     );
